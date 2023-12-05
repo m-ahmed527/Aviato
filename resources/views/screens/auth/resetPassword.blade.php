@@ -8,21 +8,20 @@
                         <a class="logo" href="index.html">
                             <img src="{{ asset('assets/images/logo.png') }}" alt="">
                         </a>
-                        <h2 class="text-center">Create Your Account</h2>
-                        <form action="{{ route('register') }}" method="POST" class="text-left clearfix">
+                        <h2 class="text-center">Reset Your Password</h2>
+                        @if (session()->has('success'))
+                        <div class="text-success">{{session('success')}}</div>
+                        @endif
+                        <form action="{{ route('reset.passwordpost') }}" method="POST" class="text-left clearfix">
                             @csrf
-                            <x-test placeholder=" First name" name="name" />
-                            <x-test placeholder=" Last name" name="last_name" />
-                            {{-- <x-test placeholder=" User name "/> --}}
-                            <x-test type="email" placeholder=" Enter email" name="email" />
+                            <input type="hidden" name="token" value="{{ $resetData->token }}">
+                            <x-test type="email" placeholder=" Enter email" name="email" value="{{ $user->email }}" />
                             <x-test type="password" placeholder="Password" name="password" />
                             <x-test type="password" placeholder="Confirm Password" name="password_confirmation" />
                             <div class="text-center">
-                                <button type="submit" class="btn btn-main text-center">Sign In</button>
+                                <button type="submit" class="btn btn-main text-center">Reset Password</button>
                             </div>
                         </form>
-                        <p class="mt-20">Already hava an account ?<a href="{{ route('login') }}"> Login</a></p>
-                        <p><a href="{{ route('forget.password') }}"> Forgot your password?</a></p>
                     </div>
                 </div>
             </div>
