@@ -72,29 +72,42 @@
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     <!-- Cart -->
+                    @if (Route::has('login'))
+
                     <ul class="top-menu text-right list-inline">
                         <li class="dropdown cart-nav dropdown-slide">
                             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-                                    class="tf-ion-android-cart"></i>Cart</a>
-                            <div class="dropdown-menu cart-dropdown">
-                                <!-- Cart Item -->
+                                class="tf-ion-android-cart"></i>Cart</a>
+                                <div class="dropdown-menu cart-dropdown">
+                                    <!-- Cart Item -->
+                                    {{-- @dd(auth()->user()->unreadNotifications()) --}}
+
+
+                                    @auth()
+                                @if(auth()->user()->unreadNotifications->isNotEmpty())
+                                @foreach (auth()->user()->unreadNotifications as $notifications )
+
                                 <div class="media">
-                                    <a class="pull-left" href="#!">
+                                    {{-- <a class="pull-left" href="#!">
                                         <img class="media-object" src="{{ asset('assets/images/shop/cart/cart-1.jpg') }}"
-                                            alt="image" />
-                                    </a>
+                                        alt="image" />
+                                    </a> --}}
                                     <div class="media-body">
-                                        <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
+                                        <h4 class="media-heading">{{$notifications->data['user']['name']}} has just registered at {{$notifications->created_at->diffForHumans()}}</h4>
                                         <div class="cart-price">
-                                            <span>1 x</span>
-                                            <span>1250.00</span>
                                         </div>
-                                        <h5><strong>$1200</strong></h5>
+                                        <strong><a href="{{$notifications->markAsRead($notifications->id)}}"> Mark as Read</a></strong>
                                     </div>
-                                    <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div><!-- / Cart Item -->
+
+                                </div>
+                                @endforeach
+                                @endif
+                                @endif
+                                @endauth
+
+                                <!-- / Cart Item -->
                                 <!-- Cart Item -->
-                                <div class="media">
+                                {{-- <div class="media">
                                     <a class="pull-left" href="#!">
                                         <img class="media-object" src="{{ asset('assets/images/shop/cart/cart-2.jpg') }}"
                                             alt="image" />
@@ -108,9 +121,9 @@
                                         <h5><strong>$1200</strong></h5>
                                     </div>
                                     <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div><!-- / Cart Item -->
+                                </div><!-- / Cart Item --> --}}
 
-                                <div class="cart-summary">
+                                {{-- <div class="cart-summary">
                                     <span>Total</span>
                                     <span class="total-price">$1799.00</span>
                                 </div>
@@ -121,7 +134,7 @@
                                 </ul>
                             </div>
 
-                        </li><!-- / Cart -->
+                        </li><!-- / Cart --> --}}
 
                         <!-- Search -->
                         <li class="dropdown search dropdown-slide">
